@@ -11,11 +11,5 @@
 		<slot />
 		{label}
 	</label>
-	<input
-		class="input input-sm input-bordered input-error w-full"
-		{type}
-		{name}
-		{placeholder}
-		{required}
-	/>
+	<input class="input w-full border border-mainBlue" {type} {name} {placeholder} {required} />
 </div>

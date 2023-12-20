@@ -4,32 +4,31 @@
 </script>
 
 <main
-	class="bg-blue-500 p-6 grid h-screen w-full
-bg-gradient-to-r
-from-blue-500
-via-violet-600
-to-emerald-400
-background-animate"
+	class="bg-mainBlue p-6 grid h-screen w-full
+    bg-gradient-to-r
+    from-darkBlue
+    via-navy
+    to-darkNavy
+    background-animate"
 >
 	<h1 class="text-3xl font-bold text-white text-center h-4">Asistente Virtual</h1>
 	<img alt="icono del asistente virtual" src="/assets/bot2.png" class="m-auto h-96 w-96" />
 
 	<section class="grid">
 		<h2 class="text-white text-xl font-bold">Iniciar sesión</h2>
-		<form class="grid gap-3" method="post" action="?/login">
-			<label for="mail">Correo</label>
-			<input type="text" id="mail" class="rounded-md p-2" />
-			<label for="password">Contraseña</label>
-			<input type="password" id="password" class="rounded-md p-2" />
+		<form class="grid gap-2" method="post" action="?/login">
+			<Input label={'Correo'} name={'mail'} />
+			<Input label={'Contraseña'} name={'password'} type={'password'} />
 			<input
 				type="submit"
 				value="Ingresar"
-				class="bg-blue-700 rounded-md p-2 text-white font-bold"
+				class="bg-mainBlue hover:bg-darkBlue rounded-md p-2 text-darkNavy font-bold"
 			/>
 		</form>
 
-		<a href="/" class="mt-3">Olvide mi contraseña</a>
-		<button class="btn" onclick="creationModal.showModal()">Crear cuenta</button>
+		<button class="btn mt-8 text-darkBlue hover:text-darkNavy" onclick="creationModal.showModal()"
+			>Crear cuenta</button
+		>
 	</section>
 </main>
 
