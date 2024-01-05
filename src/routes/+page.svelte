@@ -4,7 +4,7 @@
 </script>
 
 <main
-	class="bg-mainBlue p-6 grid h-screen w-full
+	class="bg-mainBlue p-6 grid w-full min-h-screen
     bg-gradient-to-r
     from-darkBlue
     via-navy
