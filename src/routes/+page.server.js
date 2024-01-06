@@ -9,10 +9,17 @@ export const actions = {
 	login: async () => {
 		throw redirect(301, '/home');
 	},
-	userCreation: async ({ request }) => {
+	userCreation: async ({ request, fetch }) => {
 		const form = await request.formData();
 		const data = Object.fromEntries(form.entries());
 
-		console.log(data);
+		const fetchData = await fetch('/api/users', {
+			method: 'POST',
+			body: JSON.stringify(data)
+		});
+
+		const response = await fetchData.json();
+
+		console.log(response);
 	}
 };

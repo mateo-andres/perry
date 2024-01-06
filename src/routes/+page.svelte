@@ -34,10 +34,10 @@
 
 <Modal id_modal={'creationModal'} boton={'Crear usuario'} action={'userCreation'}>
 	<h3 class="font-bold text-lg mb-2" slot="title">Crea un usuario nuevo</h3>
-	<Input label={'Nombre Completo'} name={'newName'} />
-	<Input label={'Correo'} name={'newMail'} type={'email'} />
-	<Input label={'Contraseña'} name={'newPassword'} />
-	<Input label={'Edad'} name={'newAge'} type={'number'} />
+	<Input label={'Nombre Completo'} name={'name'} />
+	<Input label={'Correo'} name={'email'} type={'email'} />
+	<Input label={'Contraseña'} name={'password'} />
+	<Input label={'Edad'} name={'age'} type={'number'} />
 </Modal>
 
 <style>
