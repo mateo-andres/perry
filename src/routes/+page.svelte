@@ -22,7 +22,7 @@
 	<section class="grid">
 		<h2 class="text-white text-xl font-bold">Iniciar sesión</h2>
 		<form class="grid gap-2" method="post" action="?/login">
-			<Input label={'Correo'} name={'mail'} />
+			<Input label={'Correo'} name={'email'} />
 			<Input label={'Contraseña'} name={'password'} type={'password'} />
 			<input
 				type="submit"
