@@ -1,7 +1,12 @@
 <script>
 	import Modal from '$components/Modal.svelte';
 	import Input from '$components/Input.svelte';
+	import Toast from '$components/Toast.svelte';
+
+	export let form;
 </script>
+
+<Toast {form} />
 
 <main
 	class="bg-mainBlue p-6 grid w-full min-h-screen

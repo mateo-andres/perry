@@ -20,6 +20,16 @@ export const actions = {
 
 		const response = await fetchData.json();
 
-		console.log(response);
+		if (!response.success) {
+			return {
+				success: false,
+				message: 'Error en la creación del usuario'
+			};
+		}
+
+		return {
+			success: true,
+			message: 'Usuario creado correctamente'
+		};
 	}
 };
