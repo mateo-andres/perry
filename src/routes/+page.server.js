@@ -1,12 +1,11 @@
 import { redirect } from '@sveltejs/kit';
 
-/** @type {import('./$types').PageServerLoad} */
 export async function load() {
 	return {};
 }
 
 export const actions = {
-	login: async ({ request, fetch }) => {
+	login: async ({ request, fetch, cookies }) => {
 		const form = await request.formData();
 		const data = Object.fromEntries(form.entries());
 
@@ -14,18 +13,28 @@ export const actions = {
 			method: 'POST',
 			body: JSON.stringify(data)
 		});
+
+		// if (fetchData.status === 302) {
+		// 	return redirect(fetchData.headers.get('Location'), 300);
+		// }
+		// console.log(fetchData);
 		const response = await fetchData.json();
 
-		// console.log(fetchData);
-
-		if (response.success) {
-			throw redirect(301, '/home');
-		} else {
+		if (!response.success) {
 			return {
 				success: false,
-				message: 'Error en el login'
+				message: response.data
 			};
 		}
+
+		const TWO_HOURS_IN_SECONDS = '7200';
+		cookies.set('userToken', response.data, {
+			path: '/',
+			maxAge: TWO_HOURS_IN_SECONDS,
+			secure: true
+		});
+
+		throw redirect(301, '/home');
 	},
 	userCreation: async ({ request, fetch }) => {
 		const form = await request.formData();
