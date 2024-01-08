@@ -1,5 +1,10 @@
 <script>
 	import Card from '$components/Card.svelte';
+	import { compile } from 'svelte/compiler';
+
+	export let data;
+
+	console.log(data);
 </script>
 
 <main class="p-6 grid gap-y-5 mb-16">

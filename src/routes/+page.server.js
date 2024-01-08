@@ -14,10 +14,6 @@ export const actions = {
 			body: JSON.stringify(data)
 		});
 
-		// if (fetchData.status === 302) {
-		// 	return redirect(fetchData.headers.get('Location'), 300);
-		// }
-		// console.log(fetchData);
 		const response = await fetchData.json();
 
 		if (!response.success) {
@@ -33,7 +29,6 @@ export const actions = {
 			maxAge: TWO_HOURS_IN_SECONDS,
 			secure: true
 		});
-
 		throw redirect(301, '/home');
 	},
 	userCreation: async ({ request, fetch }) => {

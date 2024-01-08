@@ -1,4 +1,8 @@
 <script>
+	export let data;
+	const { session } = data;
+
+	console.log(data);
 </script>
 
 <main class="p-4">
@@ -12,8 +16,8 @@
 			alt="profile "
 		/>
 		<div class="flex flex-col items-center justify-center mb-4">
-			<h2 class="font-bold text-xl">Mateo Niampira</h2>
-			<p class="text-gray-500">estudiante@uninpahu.edu.co</p>
+			<h2 class="font-bold text-xl">{session.name}</h2>
+			<p class="text-gray-500">{session.email}</p>
 		</div>
 		<div class="flex flex-col items-center justify-center gap-3">
 			<a href="/" class="btn text-white btn-sm bg-darkNavy">Cerrar sesión</a>
