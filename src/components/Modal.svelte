@@ -10,9 +10,11 @@
 		<slot name="title" />
 		<form action="?/{action}" method="post" class="grid gap-1">
 			<slot />
-			<button class="btn bg-mainBlue hover:bg-darkBlue w-fit justify-self-center mt-3">
-				{boton}
-			</button>
+			{#if boton}
+				<button class="btn bg-mainBlue hover:bg-darkBlue w-fit justify-self-center mt-3">
+					{boton}
+				</button>
+			{/if}
 		</form>
 	</div>
 </dialog>

@@ -1,8 +1,10 @@
 <script>
-	export let data;
-	const { session } = data;
+	import Modal from '$components/Modal.svelte';
+	import Input from '$components/Input.svelte';
+	import Toast from '$components/Toast.svelte';
 
-	console.log(data);
+	export let data;
+	const { session, academicInfo } = data;
 </script>
 
 <main class="p-4">
@@ -30,10 +32,16 @@
 		<button class="btn border border-darkBlue bg-mainBlue w-full justify-start">
 			<i class="fa-solid fa-user-pen" />Información de usuario
 		</button>
-		<button class="btn border border-darkBlue bg-mainBlue w-full justify-start">
+		<button
+			class="btn border border-darkBlue bg-mainBlue w-full justify-start"
+			onclick="academicModal.showModal()"
+		>
 			<i class="fa-solid fa-book" />Información académica
 		</button>
-		<button class="btn border border-darkBlue bg-mainBlue w-full justify-start">
+		<button
+			class="btn border border-darkBlue bg-mainBlue w-full justify-start"
+			onclick="professionalModal.showModal()"
+		>
 			<i class="fa-solid fa-bullseye" />Objetivos e intereses
 		</button>
 		<button class="btn border border-darkBlue bg-mainBlue w-full justify-start">
@@ -41,3 +49,30 @@
 		</button>
 	</section>
 </main>
+
+<Modal id_modal={'academicModal'} action={'sendAcademicInfo'} boton={'Guardar'}>
+	<h3 class="font-bold text-lg mb-2" slot="title">Información académica</h3>
+	<input type="hidden" name="user_id" value={session.id} />
+	<Input name={'id'} type={'hidden'} value={academicInfo?.id} />
+	<Input label={'Semestre actual'} name={'semester'} type={'number'} />
+	<div class="divider" />
+	<h4>Materias del semestre</h4>
+	<Input label={'Materia 1'} name={'course1'} />
+	<Input label={'Materia 2'} name={'course2'} />
+	<Input label={'Materia 3'} name={'course3'} />
+	<Input label={'Materia 4'} name={'course4'} />
+	<Input label={'Materia 5'} name={'course5'} />
+</Modal>
+
+<Modal id_modal={'professionalModal'} action={'userCreation'} boton={'Guardar'}>
+	<h3 class="font-bold text-lg mb-2" slot="title">Información profesional</h3>
+	<h4>Objetivos profesionales</h4>
+	<Input label={''} name={'objective1'} placeholder={'Objetivo 1'} />
+	<Input label={''} name={'objective2'} placeholder={'Objetivo 2'} />
+	<Input label={''} name={'objective3'} placeholder={'Objetivo 3'} />
+	<div class="divider" />
+	<h4>Habilidades técnicas</h4>
+	<Input label={''} name={'skill1'} placeholder={'Habilidad 1'} />
+	<Input label={''} name={'skill2'} placeholder={'Habilidad 2'} />
+	<Input label={''} name={'skill3'} placeholder={'Habilidad 3'} />
+</Modal>
