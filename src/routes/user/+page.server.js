@@ -7,9 +7,16 @@ export async function load({ fetch, parent }) {
 
 		return response.data;
 	};
+	const fetchCareer = async () => {
+		const fetchData = await fetch(`/api/users/professional/${session.id}`);
+		const response = await fetchData.json();
+
+		return response.data;
+	};
 
 	return {
-		academicInfo: await fetchAcademic()
+		academicInfo: await fetchAcademic(),
+		careerInfo: await fetchCareer()
 	};
 }
 
@@ -38,5 +45,46 @@ export const actions = {
 			body: JSON.stringify(data)
 		});
 		const response = await fetchAcademic.json();
+	},
+	sendProfessionalInfo: async ({ request, fetch }) => {
+		const form = await request.formData();
+		const data = Object.fromEntries(form.entries());
+
+		//get every item  from data that starts with "objective"
+		let career_goals = [];
+		for (let key in data) {
+			if (key.startsWith('objective')) {
+				career_goals.push(data[key]);
+			}
+		}
+
+		let skills = [];
+		for (let key in data) {
+			if (key.startsWith('skill')) {
+				skills.push(data[key]);
+			}
+		}
+
+		let method = 'PUT';
+		if (data.id === '') {
+			method = 'POST';
+		}
+
+		const fetchProfessional = await fetch('/api/users/professional', {
+			method: method,
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify({
+				career_goals: career_goals,
+				skills: skills,
+				user_id: data.user_id,
+				id: data.id
+			})
+		});
+
+		const response = await fetchProfessional.json();
+
+		console.log(response);
 	}
 };

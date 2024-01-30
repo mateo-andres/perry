@@ -4,7 +4,9 @@
 	import Toast from '$components/Toast.svelte';
 
 	export let data;
-	const { session, academicInfo } = data;
+	const { session, academicInfo, careerInfo } = data;
+
+	console.log(careerInfo);
 </script>
 
 <main class="p-4">
@@ -64,8 +66,10 @@
 	<Input label={'Materia 5'} name={'course5'} />
 </Modal>
 
-<Modal id_modal={'professionalModal'} action={'userCreation'} boton={'Guardar'}>
+<Modal id_modal={'professionalModal'} action={'sendProfessionalInfo'} boton={'Guardar'}>
 	<h3 class="font-bold text-lg mb-2" slot="title">Información profesional</h3>
+	<input type="hidden" name="user_id" value={session.id} />
+	<Input name={'id'} type={'hidden'} value={careerInfo?.id} />
 	<h4>Objetivos profesionales</h4>
 	<Input label={''} name={'objective1'} placeholder={'Objetivo 1'} />
 	<Input label={''} name={'objective2'} placeholder={'Objetivo 2'} />
