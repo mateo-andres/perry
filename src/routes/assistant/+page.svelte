@@ -1,43 +1,38 @@
 <script>
+	import Chat from '$components/Chat.svelte';
 </script>
 
-<main class="p-4">
+<main class="p-4 flex flex-col h-screen relative">
 	<h1 class="font-bold text-3xl text-center">Asistente</h1>
+	<div class="h-full overflow-auto mb-10 p-1" id="chat">
+		<Chat role={'user'} message={'Hola'} />
+		<Chat role={'user'} message={'Como estas?'} />
+		<Chat role={'bot'} message={'Hola, no me quejo'} />
+		<Chat role={'bot'} message={'Hola, no me quejo'} />
+		<Chat role={'bot'} message={'Hola, no me quejo'} />
+		<Chat role={'bot'} message={'Hola, no me quejo'} />
+		<Chat role={'bot'} message={'Hola, no me quejo'} />
+	</div>
 
-	<div class="chat chat-end">
-		<div class="chat-image avatar">
-			<div class="w-10 rounded-full">
-				<img alt="Tailwind CSS chat bubble component" src="https://picsum.photos/200" />
-			</div>
-		</div>
-		<div class="chat-bubble">Cuanto necesito para pasar la materia?</div>
-	</div>
-	<div class="chat chat-start">
-		<div class="chat-image avatar">
-			<div class="w-10 rounded-full">
-				<img alt="Tailwind CSS chat bubble component" src="/assets/bot.png" />
-			</div>
-		</div>
-		<div class="chat-bubble">Necesitas 4.0 en el proximo taller</div>
-		<div class="chat-footer opacity-50 mt-1">
-			<a href="google.com" target="_blank" title="Comentar resultado"
-				><i class="fa-solid fa-message" /></a
-			>
-		</div>
-	</div>
-	<div class="chat chat-start">
-		<div class="chat-image avatar">
-			<div class="w-10 rounded-full">
-				<img alt="Tailwind CSS chat bubble component" src="/assets/bot.png" />
-			</div>
-		</div>
-		<div class="chat-bubble">
-			Para sacar esta nota recomiendo que inicies con el trabajo de una vez
-		</div>
-		<div class="chat-footer opacity-50 mt-1">
-			<a href="google.com" target="_blank" title="Comentar resultado"
-				><i class="fa-solid fa-message" /></a
-			>
-		</div>
-	</div>
+	<form class="join relative bottom-10">
+		<input
+			type="text"
+			placeholder="Type here"
+			class=" rounded-l-full input input-bordered border-mainBlue w-full join-item focus:outline-none"
+		/>
+		<button
+			class="btn rounded-r-full pl-2 w-16 bg-mainBlue border border-mainBlue hover:border-darkBlue hover:bg-darkBlue"
+		>
+			<i class="fa-solid fa-paper-plane fa-xl" />
+		</button>
+	</form>
 </main>
+
+<style>
+	#chat::-webkit-scrollbar {
+		width: 3px;
+	}
+	#chat::-webkit-scrollbar-thumb {
+		background-color: gray;
+	}
+</style>
