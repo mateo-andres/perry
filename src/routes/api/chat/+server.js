@@ -1,9 +1,10 @@
-import { getTokens } from '$lib/utils/tokenizer.js';
+import { getTokens } from '$lib/tokenizer.js';
 import { OPENAI_KEY } from '$env/static/private';
 
 export const POST = async ({ request }) => {
 	try {
-		const requestData = request.json();
+		const requestData = await request.json();
+
 		if (!requestData) {
 			throw new Error('No Data');
 		}
@@ -33,7 +34,7 @@ export const POST = async ({ request }) => {
 		});
 
 		const moderationData = await moderationsRes.json();
-		const [results] = moderationData;
+		const { results } = moderationData;
 
 		if (results.flagged) {
 			throw new Error('Message is flagged');
@@ -65,11 +66,12 @@ export const POST = async ({ request }) => {
 			body: JSON.stringify(chatRequestOpts)
 		});
 
+		// console.log(chatResponse);
+
 		if (!chatResponse.ok) {
 			const error = await chatResponse.json();
 			throw new Error(error);
 		}
-
 		return new Response(chatResponse.body, {
 			headers: {
 				'Content-Type': 'text/event-stream'

@@ -19,7 +19,6 @@ export const handle = async ({ event, resolve }) => {
 
 				return await resolve(event);
 			} catch (error) {
-				// console.log('error:',error)
 				throw redirect(303, '/authentication/logout');
 			}
 		} else {
@@ -27,10 +26,10 @@ export const handle = async ({ event, resolve }) => {
 		}
 	}
 
-	if (event.url.pathname.startsWith('/endpoints')) {
+	if (event.url.pathname.startsWith('/api')) {
 		try {
-			const token = event.request.headers.get('api-token');
-			verificarToken(token);
+			// const token = event.request.headers.get('api-token');
+			// verificarToken(token);
 		} catch (e) {
 			return new Response(JSON.stringify({ message: `401 Unauthorized (•ˋ _ ˊ•)` }), {
 				status: 401
