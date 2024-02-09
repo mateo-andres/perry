@@ -10,7 +10,7 @@ datasource db {
 model users {
   id            Int             @id @default(autoincrement())
   name          String
-  email         String
+  email         String          @unique(map: "email_validation")
   password      String
   age           Int             @default(autoincrement()) @db.SmallInt
   soft_skills   String[]
@@ -33,4 +33,12 @@ model career_info {
   career_goals String[]
   skills       String[]
   users        users    @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "user_career_info")
+}
+
+model todos {
+  task_id    Int      @id(map: "todos_pk") @default(autoincrement())
+  user_id    Int
+  title      String
+  status     String   @default("pending")
+  created_at DateTime @default(now()) @db.Timestamptz(6)
 }

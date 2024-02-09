@@ -4,7 +4,7 @@
 	export let type = 'text';
 	export let placeholder = '';
 	export let required = true;
-	export let value;
+	export let value = false;
 </script>
 
 <div>

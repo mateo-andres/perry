@@ -7,6 +7,7 @@
 	<div class="card-body">
 		<h2 class="card-title text-darkNavy"><slot name="icon" /> {title}</h2>
 		<slot />
+		<slot name="button_modal" />
 		{#if button}
 			<div class="card-actions justify-center">
 				<button class="btn bg-mainBlue hover:bg-darkBlue text-darkNavy">{button}</button>
