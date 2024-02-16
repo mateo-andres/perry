@@ -25,5 +25,11 @@ export const actions = {
 
 		const response = await fetchTask.json();
 		console.log(response);
+	},
+	completeTask: async ({ request, fetch }) => {
+		const form = await request.formData();
+		const data = Object.fromEntries(form.entries());
+
+		console.log(data);
 	}
 };

@@ -1,11 +1,28 @@
 <script>
+	import { invalidate, invalidateAll } from '$app/navigation';
+
 	import Card from '$components/Card.svelte';
 	import Modal from '$components/Modal.svelte';
 	import Input from '$components/Input.svelte';
 
 	export let data;
 	const { session, tasks } = data;
+
+	const handleTask = (e) => {
+		console.log(e);
+		e.target.submit();
+	};
+
+	function rerunLoadFunction() {
+		// any of these will cause the `load` function to rerun
+		invalidate('app:random');
+		invalidate('https://api.example.com/random-number');
+		invalidate((url) => url.href.includes('random-number'));
+		invalidateAll();
+	}
 </script>
+
+<button on:click={rerunLoadFunction}>Update random number</button>
 
 <main class="p-6 grid gap-y-5 mb-16">
 	<h1 class="font-bold text-3xl text-center">Inicio</h1>
@@ -15,14 +32,19 @@
 
 		{#each tasks as task}
 			{#if task.status === 'pending'}
+				<form method="post" action="?/completeTask" on:submit|preventDefault={handleTask}>
+					<label class="cursor-pointer label justify-start gap-4">
+						<button>
+							<input type="checkbox" class="checkbox checkbox-accent" name={task.task_id} />
+						</button>
+						<span class="label-text">{task.title}</span>
+					</label>
+				</form>
+			{:else}
 				<label class="cursor-pointer label justify-start gap-4">
-					<input type="checkbox" class="checkbox checkbox-accent" />
+					<input type="checkbox" class="checkbox checkbox-accent" checked name={task.task_id} />
 					<span class="label-text">{task.title}</span>
 				</label>
-			{:else}
-				<p class="cursor-pointer label justify-start gap-4">
-					<span class="label-text stroke-black">{task.title}</span>
-				</p>
 			{/if}
 		{:else}
 			<p>¡No hay nada pendiente!</p>
@@ -76,6 +98,6 @@
 
 <Modal id_modal={'addTaskModal'} action={'addTask'} boton={'Agregar'}>
 	<h3 class="font-bold text-lg mb-2" slot="title">Nueva tarea</h3>
-	<Input label={'Nombre'} name={'title'} />
+	<Input label={'Nombre de la tarea'} name={'title'} />
 	<input type="hidden" name="user_id" value={session.id} />
 </Modal>
