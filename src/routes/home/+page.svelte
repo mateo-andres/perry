@@ -1,51 +1,73 @@
 <script>
-	import { invalidate, invalidateAll } from '$app/navigation';
+	import { fade } from 'svelte/transition';
 
 	import Card from '$components/Card.svelte';
 	import Modal from '$components/Modal.svelte';
 	import Input from '$components/Input.svelte';
 
 	export let data;
-	const { session, tasks } = data;
+	let { session, tasks } = data;
 
-	const handleTask = (e) => {
-		console.log(e);
-		e.target.submit();
+	const handleTask = async (task) => {
+		await fetch(`/api/todos/${session.id}`, {
+			method: 'PUT',
+			body: JSON.stringify(task)
+		});
+
+		const taskIndex = tasks.findIndex((t) => t.task_id === task.task_id);
+		tasks[taskIndex].status = task.status === 'pending' ? 'done' : 'pending';
 	};
 
-	function rerunLoadFunction() {
-		// any of these will cause the `load` function to rerun
-		invalidate('app:random');
-		invalidate('https://api.example.com/random-number');
-		invalidate((url) => url.href.includes('random-number'));
-		invalidateAll();
-	}
-</script>
+	const handleDeleteTask = async (task) => {
+		const fetchData = await fetch(`/api/todos/${session.id}`, {
+			method: 'DELETE',
+			body: JSON.stringify(task)
+		});
 
-<button on:click={rerunLoadFunction}>Update random number</button>
+		const response = await fetchData.json();
+
+		if (response.success) {
+			tasks = tasks.filter((t) => t.task_id !== task.task_id);
+		}
+	};
+</script>
 
 <main class="p-6 grid gap-y-5 mb-16">
 	<h1 class="font-bold text-3xl text-center">Inicio</h1>
 
 	<Card title={'Pendientes'}>
 		<i slot="icon" class="fa-solid fa-list-check" />
-
 		{#each tasks as task}
-			{#if task.status === 'pending'}
-				<form method="post" action="?/completeTask" on:submit|preventDefault={handleTask}>
-					<label class="cursor-pointer label justify-start gap-4">
-						<button>
-							<input type="checkbox" class="checkbox checkbox-accent" name={task.task_id} />
-						</button>
+			<div class="flex items-center justify-between">
+				{#if task.status === 'pending'}
+					<label
+						class="cursor-pointer label justify-start gap-4"
+						transition:fade={{ y: 200, duration: 100 }}
+					>
+						<input
+							type="checkbox"
+							class="checkbox checkbox-accent"
+							name={task.task_id}
+							on:change={() => handleTask(task)}
+						/>
 						<span class="label-text">{task.title}</span>
 					</label>
-				</form>
-			{:else}
-				<label class="cursor-pointer label justify-start gap-4">
-					<input type="checkbox" class="checkbox checkbox-accent" checked name={task.task_id} />
-					<span class="label-text">{task.title}</span>
-				</label>
-			{/if}
+				{:else}
+					<label class="cursor-pointer label justify-start gap-4">
+						<input
+							type="checkbox"
+							class="checkbox checkbox-accent"
+							checked
+							name={task.task_id}
+							on:change={() => handleTask(task)}
+						/>
+						<span class="label-text line-through">{task.title}</span>
+					</label>
+				{/if}
+				<button class="btn btn-xs bg-red-300" on:click={() => handleDeleteTask(task)}
+					><i class="fa-solid fa-trash" />
+				</button>
+			</div>
 		{:else}
 			<p>¡No hay nada pendiente!</p>
 		{/each}
