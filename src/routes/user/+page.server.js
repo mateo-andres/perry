@@ -107,5 +107,11 @@ export const actions = {
 		} else {
 			console.log('Feedback not sent');
 		}
+	},
+	updateMail: async ({ request, fetch }) => {
+		const form = await request.formData();
+		const data = Object.fromEntries(form.entries());
+
+		console.log(data);
 	}
 };

@@ -30,7 +30,10 @@
 		</div>
 	</section>
 	<section class="grid gap-4">
-		<button class="btn border border-darkBlue bg-mainBlue w-full justify-start">
+		<button
+			class="btn border border-darkBlue bg-mainBlue w-full justify-start"
+			onclick="newMailModal.showModal()"
+		>
 			<i class="fa-solid fa-at" />Correo y contraseña
 		</button>
 		<button class="btn border border-darkBlue bg-mainBlue w-full justify-start">
@@ -126,4 +129,15 @@
 			on:click={() => (feedbackRate = 5)}
 		/>
 	</div>
+</Modal>
+<Modal id_modal={'newMailModal'} action={'updateMail'} boton={'Actualizar'}>
+	<h3 class="font-bold text-lg mb-2" slot="title">Actualización correo y contraseña</h3>
+	<input type="hidden" name="user_id" value={session.id} />
+	<input type="hidden" name="rate" value={feedbackRate} />
+	<h4>Nuevo correo electronico</h4>
+	<Input label={''} name={'email'} placeholder={'correo@nuevo.com'} />
+	<h4>Contraseña actual</h4>
+	<Input label={''} type={'password'} name={'currentPassword'} />
+	<h4>Nueva contraseña</h4>
+	<Input label={''} type={'password'} name={'newPassword'} />
 </Modal>
