@@ -86,5 +86,26 @@ export const actions = {
 		const response = await fetchProfessional.json();
 
 		console.log(response);
+	},
+	sendFeecback: async ({ request, fetch }) => {
+		const form = await request.formData();
+		const data = Object.fromEntries(form.entries());
+
+		delete data['rating-7'];
+
+		const fetchFeedback = await fetch('/api/feedback', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify(data)
+		});
+		const response = await fetchFeedback.json();
+
+		if (response.success) {
+			console.log('Feedback sent');
+		} else {
+			console.log('Feedback not sent');
+		}
 	}
 };

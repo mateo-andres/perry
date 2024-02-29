@@ -43,3 +43,11 @@ model todos {
   created_at DateTime @default(now()) @db.Timestamptz(6)
   active     Boolean  @default(true)
 }
+
+model feedbak {
+  feedback_id Int      @id(map: "feedbak_pk") @default(autoincrement())
+  user_id     Int
+  feedback    String
+  rate        Int
+  created_at  DateTime @default(now()) @db.Timetz(6)
+}

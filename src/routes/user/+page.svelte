@@ -6,7 +6,9 @@
 	export let data;
 	const { session, academicInfo, careerInfo } = data;
 
-	console.log(careerInfo);
+	let feedbackRate = 4;
+
+	// console.log(careerInfo);
 </script>
 
 <main class="p-4">
@@ -46,7 +48,10 @@
 		>
 			<i class="fa-solid fa-bullseye" />Objetivos e intereses
 		</button>
-		<button class="btn border border-darkBlue bg-mainBlue w-full justify-start">
+		<button
+			class="btn border border-darkBlue bg-mainBlue w-full justify-start"
+			onclick="feddbackModal.showModal()"
+		>
 			<i class="fa-regular fa-face-smile" />Feedback aplicativo
 		</button>
 	</section>
@@ -79,4 +84,46 @@
 	<Input label={''} name={'skill1'} placeholder={'Habilidad 1'} />
 	<Input label={''} name={'skill2'} placeholder={'Habilidad 2'} />
 	<Input label={''} name={'skill3'} placeholder={'Habilidad 3'} />
+</Modal>
+
+<Modal id_modal={'feddbackModal'} action={'sendFeecback'} boton={'Envíar'}>
+	<h3 class="font-bold text-lg mb-2" slot="title">Feedback aplicación</h3>
+	<input type="hidden" name="user_id" value={session.id} />
+	<input type="hidden" name="rate" value={feedbackRate} />
+	<h4>Comparte tu opinión acerca de esta aplicacion</h4>
+	<Input label={''} name={'feedback'} placeholder={'Tu opinión...'} />
+	<h4>Calificación:</h4>
+	<div class="rating rating-md gap-2">
+		<input
+			type="radio"
+			name="rating-7"
+			class="mask mask-star-2 bg-orange-400"
+			on:click={() => (feedbackRate = 1)}
+		/>
+		<input
+			type="radio"
+			name="rating-7"
+			class="mask mask-star-2 bg-orange-400"
+			on:click={() => (feedbackRate = 2)}
+		/>
+		<input
+			type="radio"
+			name="rating-7"
+			class="mask mask-star-2 bg-orange-400"
+			on:click={() => (feedbackRate = 3)}
+		/>
+		<input
+			type="radio"
+			name="rating-7"
+			class="mask mask-star-2 bg-orange-400"
+			on:click={() => (feedbackRate = 4)}
+			checked
+		/>
+		<input
+			type="radio"
+			name="rating-7"
+			class="mask mask-star-2 bg-orange-400"
+			on:click={() => (feedbackRate = 5)}
+		/>
+	</div>
 </Modal>
