@@ -1,6 +1,7 @@
 <script>
 	export let title;
 	export let button = false;
+	export let urlLink = '#';
 </script>
 
 <div class="card border border-mainBlue shadow-xl">
@@ -10,7 +11,7 @@
 		<slot name="button_modal" />
 		{#if button}
 			<div class="card-actions justify-center">
-				<button class="btn bg-mainBlue hover:bg-darkBlue text-darkNavy">{button}</button>
+				<a class="btn bg-mainBlue hover:bg-darkBlue text-darkNavy" href={urlLink}>{button}</a>
 			</div>
 		{/if}
 	</div>

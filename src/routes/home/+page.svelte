@@ -81,11 +81,11 @@
 		</button>
 	</Card>
 
-	<Card title={'Recomendaciones'} button={'Ir'}>
+	<Card title={'Recomendaciones'} button={'Ir'} urlLink={'/assistant'}>
 		<p>Descubir Recomendaciones y ver historico</p>
 	</Card>
 
-	<Card title={'Notas'} button={'Ver notas'}>
+	<Card title={'Notas'} button={'Ver notas'} urlLink={'/home/grades'}>
 		<i slot="icon" class="fa-solid fa-book" />
 
 		<div class="flex flex-col items-center justify-center bg-navy text-white rounded-xl p-4">
