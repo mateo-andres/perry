@@ -24,7 +24,18 @@ export const actions = {
 		});
 
 		const response = await fetchTask.json();
-		console.log(response);
+
+		if (response.success) {
+			return {
+				success: true,
+				message: 'Se creo una nueva tarea'
+			};
+		} else {
+			return {
+				success: false,
+				message: 'Ocurrio un problema, intenta de nuevo mas tarde'
+			};
+		}
 	}
 	// completeTask: async ({ request, fetch }) => {
 	// 	const form = await request.formData();

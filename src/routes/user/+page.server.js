@@ -45,6 +45,18 @@ export const actions = {
 			body: JSON.stringify(data)
 		});
 		const response = await fetchAcademic.json();
+
+		if (response.success) {
+			return {
+				success: true,
+				message: 'Se guardo la información académica correctamente'
+			};
+		} else {
+			return {
+				success: false,
+				message: 'Ocurrio un problema, intenta de nuevo mas tarde'
+			};
+		}
 	},
 	sendProfessionalInfo: async ({ request, fetch }) => {
 		const form = await request.formData();
@@ -85,12 +97,21 @@ export const actions = {
 
 		const response = await fetchProfessional.json();
 
-		console.log(response);
+		if (response.success) {
+			return {
+				success: true,
+				message: 'Se guardo la información académica correctamente'
+			};
+		} else {
+			return {
+				success: false,
+				message: 'Ocurrio un problema, intenta de nuevo mas tarde'
+			};
+		}
 	},
 	sendFeecback: async ({ request, fetch }) => {
 		const form = await request.formData();
 		const data = Object.fromEntries(form.entries());
-
 		delete data['rating-7'];
 
 		const fetchFeedback = await fetch('/api/feedback', {
@@ -103,9 +124,15 @@ export const actions = {
 		const response = await fetchFeedback.json();
 
 		if (response.success) {
-			console.log('Feedback sent');
+			return {
+				success: true,
+				message: 'feedback enviadó, gracias por tu opinión'
+			};
 		} else {
-			console.log('Feedback not sent');
+			return {
+				success: false,
+				message: 'Ocurrio un problema, intenta de nuevo mas tarde'
+			};
 		}
 	},
 	updateMail: async ({ request, fetch }) => {

@@ -4,8 +4,9 @@
 	import Card from '$components/Card.svelte';
 	import Modal from '$components/Modal.svelte';
 	import Input from '$components/Input.svelte';
+	import Toast from '$components/Toast.svelte';
 
-	export let data;
+	export let data, form;
 	let { session, tasks } = data;
 
 	const handleTask = async (task) => {
@@ -31,6 +32,8 @@
 		}
 	};
 </script>
+
+<Toast {form} />
 
 <main class="p-6 grid gap-y-5 mb-16">
 	<h1 class="font-bold text-3xl text-center">Inicio</h1>

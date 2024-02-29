@@ -3,15 +3,14 @@
 	import Input from '$components/Input.svelte';
 	import Toast from '$components/Toast.svelte';
 
-	export let data;
+	export let data, form;
 	const { session, academicInfo, careerInfo } = data;
 
 	let feedbackRate = 4;
-
-	// console.log(careerInfo);
 </script>
 
 <main class="p-4">
+	<Toast {form} />
 	<h1 class="font-bold text-3xl text-center">perfil</h1>
 	<section
 		class="flex flex-col items-center justify-center relative border border-darkBlue bg-mainBlue rounded-xl mt-20 pb-6 mb-6"

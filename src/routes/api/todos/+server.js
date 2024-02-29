@@ -11,10 +11,10 @@ export async function POST({ request }) {
 			}
 		});
 		prisma.$disconnect();
-		return new Response(JSON.stringify({ data: newTask, susccess: true }));
+		return new Response(JSON.stringify({ data: newTask, success: true }));
 	} catch (error) {
 		console.error(error);
 		prisma.$disconnect();
-		return new Response(JSON.stringify({ error, susccess: false }));
+		return new Response(JSON.stringify({ error, success: false }));
 	}
 }
