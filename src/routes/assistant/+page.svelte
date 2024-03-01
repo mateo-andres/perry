@@ -7,49 +7,49 @@
 	let loading = false;
 	let chatMessages = [];
 
-	const handleSubmit = () => {
-		loading = true;
-		chatMessages = [...chatMessages, { role: 'user', content: query }];
+	// const handleSubmit = () => {
+	// 	loading = true;
+	// 	chatMessages = [...chatMessages, { role: 'user', content: query }];
 
-		const eventSource = new SSE('/api/chat', {
-			headers: {
-				'Content-Type': 'application/json'
-			},
-			payload: JSON.stringify({ messages: chatMessages })
-		});
+	// 	const eventSource = new SSE('/api/chat', {
+	// 		headers: {
+	// 			'Content-Type': 'application/json'
+	// 		},
+	// 		payload: JSON.stringify({ messages: chatMessages })
+	// 	});
 
-		query = '';
-		eventSource.addEventListener('error', handleError);
+	// 	query = '';
+	// 	eventSource.addEventListener('error', handleError);
 
-		eventSource.addEventListener('message', (e) => {
-			try {
-				loading = false;
-				if (e.data === '[DONE]') {
-					chatMessages = [...chatMessages, { role: 'bot', content: answer }];
-					answer = '';
-					return;
-				}
+	// 	eventSource.addEventListener('message', (e) => {
+	// 		try {
+	// 			loading = false;
+	// 			if (e.data === '[DONE]') {
+	// 				chatMessages = [...chatMessages, { role: 'bot', content: answer }];
+	// 				answer = '';
+	// 				return;
+	// 			}
 
-				const completionResponse = JSON.parse(e.data);
-				const [{ delta }] = completionResponse.choices;
+	// 			const completionResponse = JSON.parse(e.data);
+	// 			const [{ delta }] = completionResponse.choices;
 
-				if (delta.content) {
-					answer = (answer ?? '') + delta.content;
-				}
-			} catch (err) {
-				handleError(err);
-			}
-		});
+	// 			if (delta.content) {
+	// 				answer = (answer ?? '') + delta.content;
+	// 			}
+	// 		} catch (err) {
+	// 			handleError(err);
+	// 		}
+	// 	});
 
-		eventSource.stream();
-	};
+	// 	eventSource.stream();
+	// };
 
-	const handleError = (error) => {
-		loading = false;
-		query = '';
-		answer = 'Error';
-		console.error('Error00:', error);
-	};
+	// const handleError = (error) => {
+	// 	loading = false;
+	// 	query = '';
+	// 	answer = 'Error';
+	// 	console.error('Error00:', error);
+	// };
 </script>
 
 <main class="p-4 flex flex-col h-screen relative">
@@ -66,7 +66,8 @@
 		{/if}
 	</div>
 
-	<form class="join relative bottom-10" on:submit|preventDefault={() => handleSubmit()}>
+	<!-- <form class="join relative bottom-10" on:submit|preventDefault={() => handleSubmit()}> -->
+	<form class="join relative bottom-10">
 		<input
 			type="text"
 			placeholder="Type here"
@@ -74,12 +75,12 @@
 			class=" rounded-l-full input input-bordered border-mainBlue w-full join-item focus:outline-none"
 			bind:value={query}
 		/>
-		<button
+		<!-- <button
 			type="submit"
 			class="btn rounded-r-full pl-2 w-16 bg-mainBlue border border-mainBlue hover:border-darkBlue hover:bg-darkBlue"
 		>
 			<i class="fa-solid fa-paper-plane fa-xl" />
-		</button>
+		</button> -->
 	</form>
 </main>
 
