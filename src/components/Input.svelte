@@ -5,11 +5,12 @@
 	export let placeholder = '';
 	export let required = true;
 	export let value = false;
+	export let labelClass = '';
 </script>
 
 <div>
 	{#if label}
-		<label class="label justify-start gap-4 font-bold" for={name}>
+		<label class="label justify-start gap-4 font-bold {labelClass}" for={name}>
 			<slot />
 			{label}
 		</label>
@@ -17,7 +18,7 @@
 
 	{#if value}
 		<input
-			class="input w-full border border-mainBlue"
+			class="input w-full border-2 border-azul-300 focus:outline-none"
 			{type}
 			{name}
 			{placeholder}
@@ -25,6 +26,12 @@
 			{value}
 		/>
 	{:else}
-		<input class="input w-full border border-mainBlue" {type} {name} {placeholder} {required} />
+		<input
+			class="input w-full border-2 border-azul-300 focus:outline-none"
+			{type}
+			{name}
+			{placeholder}
+			{required}
+		/>
 	{/if}
 </div>

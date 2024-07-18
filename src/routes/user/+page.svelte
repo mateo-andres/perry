@@ -1,5 +1,5 @@
 <script>
-	import Modal from '$components/Modal.svelte';
+	import ModalForm from '$components/ModalForm.svelte';
 	import Input from '$components/Input.svelte';
 	import Toast from '$components/Toast.svelte';
 
@@ -59,7 +59,7 @@
 	</section>
 </main>
 
-<Modal id_modal={'academicModal'} action={'sendAcademicInfo'} boton={'Guardar'}>
+<ModalForm id_modal={'academicModal'} action={'sendAcademicInfo'} boton={'Guardar'}>
 	<h3 class="font-bold text-lg mb-2" slot="title">Información académica</h3>
 	<input type="hidden" name="user_id" value={session.id} />
 	<Input name={'id'} type={'hidden'} value={academicInfo?.id} />
@@ -71,9 +71,9 @@
 	<Input label={'Materia 3'} name={'course3'} />
 	<Input label={'Materia 4'} name={'course4'} />
 	<Input label={'Materia 5'} name={'course5'} />
-</Modal>
+</ModalForm>
 
-<Modal id_modal={'professionalModal'} action={'sendProfessionalInfo'} boton={'Guardar'}>
+<ModalForm id_modal={'professionalModal'} action={'sendProfessionalInfo'} boton={'Guardar'}>
 	<h3 class="font-bold text-lg mb-2" slot="title">Información profesional</h3>
 	<input type="hidden" name="user_id" value={session.id} />
 	<Input name={'id'} type={'hidden'} value={careerInfo?.id} />
@@ -86,9 +86,9 @@
 	<Input label={''} name={'skill1'} placeholder={'Habilidad 1'} />
 	<Input label={''} name={'skill2'} placeholder={'Habilidad 2'} />
 	<Input label={''} name={'skill3'} placeholder={'Habilidad 3'} />
-</Modal>
+</ModalForm>
 
-<Modal id_modal={'feddbackModal'} action={'sendFeecback'} boton={'Envíar'}>
+<ModalForm id_modal={'feddbackModal'} action={'sendFeecback'} boton={'Envíar'}>
 	<h3 class="font-bold text-lg mb-2" slot="title">Feedback aplicación</h3>
 	<input type="hidden" name="user_id" value={session.id} />
 	<input type="hidden" name="rate" value={feedbackRate} />
@@ -128,8 +128,8 @@
 			on:click={() => (feedbackRate = 5)}
 		/>
 	</div>
-</Modal>
-<Modal id_modal={'newMailModal'} action={'updateMail'} boton={'Actualizar'}>
+</ModalForm>
+<ModalForm id_modal={'newMailModal'} action={'updateMail'} boton={'Actualizar'}>
 	<h3 class="font-bold text-lg mb-2" slot="title">Actualización correo y contraseña</h3>
 	<input type="hidden" name="user_id" value={session.id} />
 	<input type="hidden" name="rate" value={feedbackRate} />
@@ -139,4 +139,4 @@
 	<Input label={''} type={'password'} name={'currentPassword'} />
 	<h4>Nueva contraseña</h4>
 	<Input label={''} type={'password'} name={'newPassword'} />
-</Modal>
+</ModalForm>

@@ -2,7 +2,7 @@
 	import { fade } from 'svelte/transition';
 
 	import Card from '$components/Card.svelte';
-	import Modal from '$components/Modal.svelte';
+	import ModalForm from '$components/ModalForm.svelte';
 	import Input from '$components/Input.svelte';
 	import Toast from '$components/Toast.svelte';
 
@@ -121,8 +121,8 @@
 	</Card>
 </main>
 
-<Modal id_modal={'addTaskModal'} action={'addTask'} boton={'Agregar'}>
+<ModalForm id_modal={'addTaskModal'} action={'addTask'} boton={'Agregar'}>
 	<h3 class="font-bold text-lg mb-2" slot="title">Nueva tarea</h3>
 	<Input label={'Nombre de la tarea'} name={'title'} />
 	<input type="hidden" name="user_id" value={session.id} />
-</Modal>
+</ModalForm>
