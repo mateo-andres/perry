@@ -7,7 +7,13 @@ export async function load({ parent, fetch }) {
 		return data.data;
 	};
 
-	return { session, tasks: await fetchTasks() };
+	const fetchAcedemicInfo = async () => {
+		const response = await fetch(`/api/users/academic/${session.id}`);
+		const data = await response.json();
+		return data.data;
+	};
+
+	return { session, tasks: await fetchTasks(), academicInfo: await fetchAcedemicInfo() };
 }
 
 export const actions = {
