@@ -1,36 +1,12 @@
 <script>
-	import { fade } from 'svelte/transition';
-
 	import Card from '$components/Card.svelte';
 	import ModalForm from '$components/ModalForm.svelte';
 	import Input from '$components/Input.svelte';
 	import Toast from '$components/Toast.svelte';
+	import Pendientes from '$components/home/Pendientes.svelte';
 
 	export let data, form;
 	let { session, tasks } = data;
-
-	const handleTask = async (task) => {
-		await fetch(`/api/todos/${session.id}`, {
-			method: 'PUT',
-			body: JSON.stringify(task)
-		});
-
-		const taskIndex = tasks.findIndex((t) => t.task_id === task.task_id);
-		tasks[taskIndex].status = task.status === 'pending' ? 'done' : 'pending';
-	};
-
-	const handleDeleteTask = async (task) => {
-		const fetchData = await fetch(`/api/todos/${session.id}`, {
-			method: 'DELETE',
-			body: JSON.stringify(task)
-		});
-
-		const response = await fetchData.json();
-
-		if (response.success) {
-			tasks = tasks.filter((t) => t.task_id !== task.task_id);
-		}
-	};
 </script>
 
 <Toast {form} />
@@ -38,51 +14,7 @@
 <main class="p-6 grid gap-y-5 mb-16">
 	<h1 class="font-bold text-3xl text-center">Inicio</h1>
 
-	<Card title={'Pendientes'}>
-		<i slot="icon" class="fa-solid fa-list-check" />
-		{#each tasks as task}
-			<div class="flex items-center justify-between">
-				{#if task.status === 'pending'}
-					<label
-						class="cursor-pointer label justify-start gap-4"
-						transition:fade={{ y: 200, duration: 100 }}
-					>
-						<input
-							type="checkbox"
-							class="checkbox checkbox-accent"
-							name={task.task_id}
-							on:change={() => handleTask(task)}
-						/>
-						<span class="label-text">{task.title}</span>
-					</label>
-				{:else}
-					<label class="cursor-pointer label justify-start gap-4">
-						<input
-							type="checkbox"
-							class="checkbox checkbox-accent"
-							checked
-							name={task.task_id}
-							on:change={() => handleTask(task)}
-						/>
-						<span class="label-text line-through">{task.title}</span>
-					</label>
-				{/if}
-				<button class="btn btn-xs bg-red-300" on:click={() => handleDeleteTask(task)}
-					><i class="fa-solid fa-trash" />
-				</button>
-			</div>
-		{:else}
-			<p>¡No hay nada pendiente!</p>
-		{/each}
-
-		<button
-			slot="button_modal"
-			class="btn bg-mainBlue hover:bg-darkBlue text-darkNavy"
-			onclick="addTaskModal.showModal()"
-		>
-			Agregar tarea
-		</button>
-	</Card>
+	<Pendientes {tasks} {session} />
 
 	<Card title={'Recomendaciones'} button={'Ir'} urlLink={'/assistant'}>
 		<p>Descubir Recomendaciones y ver historico</p>
