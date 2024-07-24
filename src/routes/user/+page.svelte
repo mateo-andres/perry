@@ -9,49 +9,55 @@
 	let feedbackRate = 4;
 </script>
 
-<main class="p-4">
+<main class="p-4 font-inconsolata">
 	<Toast {form} />
-	<h1 class="font-bold text-3xl text-center">perfil</h1>
+	<!-- <h1 class="font-bold text-3xl text-center">perfil</h1> -->
+
 	<section
-		class="flex flex-col items-center justify-center relative border border-darkBlue bg-mainBlue rounded-xl mt-20 pb-6 mb-6"
+		class="flex flex-col items-center justify-center relative bg-azul-300 rounded-xl mt-20 pb-6 mb-6 text-sombra-100"
 	>
 		<img
-			class="w-32 h-32 rounded-full relative bottom-14"
+			class="w-32 h-32 rounded-full absolute -top-14"
 			src="https://picsum.photos/200"
 			alt="profile "
 		/>
-		<div class="flex flex-col items-center justify-center mb-4">
-			<h2 class="font-bold text-xl">{session.name}</h2>
-			<p class="text-gray-500">{session.email}</p>
+		<div class="flex flex-col items-center justify-center mb-4 mt-[25%]">
+			<h2 class="font-bold text-4xl">{session.name}</h2>
+			<p class="">{session.email}</p>
 		</div>
 		<div class="flex flex-col items-center justify-center gap-3">
-			<a href="/" class="btn text-white btn-sm bg-darkNavy">Cerrar sesión</a>
+			<a href="/" class="btn btn-sm text-sombra-100 bg-azul-400 border-0 px-7 hover:bg-azul-200"
+				>Cerrar sesión</a
+			>
 		</div>
 	</section>
+
 	<section class="grid gap-4">
 		<button
-			class="btn border border-darkBlue bg-mainBlue w-full justify-start"
+			class="btn bg-azul-300 hover:bg-azul-200 text-sombra-100 w-full justify-center text-base"
 			onclick="newMailModal.showModal()"
 		>
 			<i class="fa-solid fa-at" />Correo y contraseña
 		</button>
-		<button class="btn border border-darkBlue bg-mainBlue w-full justify-start">
+		<button
+			class="btn bg-azul-300 hover:bg-azul-200 text-sombra-100 w-full justify-center text-base"
+		>
 			<i class="fa-solid fa-user-pen" />Información de usuario
 		</button>
 		<button
-			class="btn border border-darkBlue bg-mainBlue w-full justify-start"
+			class="btn bg-azul-300 hover:bg-azul-200 text-sombra-100 w-full justify-center text-base"
 			onclick="academicModal.showModal()"
 		>
 			<i class="fa-solid fa-book" />Información académica
 		</button>
 		<button
-			class="btn border border-darkBlue bg-mainBlue w-full justify-start"
+			class="btn bg-azul-300 hover:bg-azul-200 text-sombra-100 w-full justify-center text-base"
 			onclick="professionalModal.showModal()"
 		>
 			<i class="fa-solid fa-bullseye" />Objetivos e intereses
 		</button>
 		<button
-			class="btn border border-darkBlue bg-mainBlue w-full justify-start"
+			class="btn bg-azul-300 hover:bg-azul-200 text-sombra-100 w-full justify-center text-base"
 			onclick="feddbackModal.showModal()"
 		>
 			<i class="fa-regular fa-face-smile" />Feedback aplicativo
@@ -129,6 +135,7 @@
 		/>
 	</div>
 </ModalForm>
+
 <ModalForm id_modal={'newMailModal'} action={'updateMail'} boton={'Actualizar'}>
 	<h3 class="font-bold text-lg mb-2" slot="title">Actualización correo y contraseña</h3>
 	<input type="hidden" name="user_id" value={session.id} />
