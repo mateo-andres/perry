@@ -5,8 +5,23 @@
 
 	export let data, form;
 	const { session, academicInfo, careerInfo } = data;
+	console.log('🚀 ~ careerInfo:', careerInfo);
 
 	let feedbackRate = 4;
+	let newObjective = '';
+
+	const handleNewObjective = async () => {
+		const pastObjectives = [...careerInfo.career_goals];
+		// console.log('🚀 ~ newObjective:', newObjective);
+		careerInfo.career_goals = [...careerInfo.career_goals, newObjective];
+
+		await fetch(`/api/users/professional/goals`, {
+			method: 'PUT',
+			body: JSON.stringify({ id: careerInfo.id, newObjective: newObjective })
+		});
+
+		newObjective = '';
+	};
 </script>
 
 <main class="p-4 font-inconsolata">
@@ -81,12 +96,31 @@
 
 <ModalForm id_modal={'professionalModal'} action={'sendProfessionalInfo'} boton={'Guardar'}>
 	<h3 class="font-bold text-lg mb-2" slot="title">Información profesional</h3>
-	<input type="hidden" name="user_id" value={session.id} />
-	<Input name={'id'} type={'hidden'} value={careerInfo?.id} />
-	<h4>Objetivos profesionales</h4>
-	<Input label={''} name={'objective1'} placeholder={'Objetivo 1'} />
-	<Input label={''} name={'objective2'} placeholder={'Objetivo 2'} />
-	<Input label={''} name={'objective3'} placeholder={'Objetivo 3'} />
+	<section>
+		<!-- <input type="hidden" name="user_id" value={session.id} />
+		<Input name={'id'} type={'hidden'} value={careerInfo?.id} /> -->
+		<h4>Objetivos profesionales</h4>
+		<ul class="grid gap-1 my-2">
+			{#each careerInfo.career_goals as goal}
+				<li class="">
+					<p class="text-sombra-300"><span class="text-sm">📌</span> {goal}</p>
+				</li>
+			{/each}
+		</ul>
+
+		<!-- <Input label={''} name={'objective1'} placeholder={'Nuevo objetivo'} /> -->
+		<input
+			class="input input-bordered input-sm focus:outline-azul-100"
+			type="text"
+			placeholder="Nuevo objetivo"
+			bind:value={newObjective}
+		/>
+		<button class="btn btn-sm btn-primary w-fit px-2" type="button" on:click={handleNewObjective}
+			>Agregar</button
+		>
+	</section>
+	<!-- <Input label={''} name={'objective2'} placeholder={'Objetivo 2'} />
+	<Input label={''} name={'objective3'} placeholder={'Objetivo 3'} /> -->
 	<div class="divider" />
 	<h4>Habilidades técnicas</h4>
 	<Input label={''} name={'skill1'} placeholder={'Habilidad 1'} />
