@@ -5,14 +5,12 @@
 
 	export let data, form;
 	const { session, academicInfo, careerInfo } = data;
-	console.log('🚀 ~ careerInfo:', careerInfo);
 
 	let feedbackRate = 4;
 	let newObjective = '';
+	let newSkill = '';
 
 	const handleNewObjective = async () => {
-		const pastObjectives = [...careerInfo.career_goals];
-		// console.log('🚀 ~ newObjective:', newObjective);
 		careerInfo.career_goals = [...careerInfo.career_goals, newObjective];
 
 		await fetch(`/api/users/professional/goals`, {
@@ -21,6 +19,17 @@
 		});
 
 		newObjective = '';
+	};
+
+	const handleNewSkill = async () => {
+		careerInfo.skills = [...careerInfo.skills, newSkill];
+
+		await fetch(`/api/users/professional/skills`, {
+			method: 'PUT',
+			body: JSON.stringify({ id: careerInfo.id, newSkill: newSkill })
+		});
+
+		newSkill = '';
 	};
 </script>
 
@@ -94,21 +103,18 @@
 	<Input label={'Materia 5'} name={'course5'} />
 </ModalForm>
 
-<ModalForm id_modal={'professionalModal'} action={'sendProfessionalInfo'} boton={'Guardar'}>
+<ModalForm id_modal={'professionalModal'} action={'sendProfessionalInfo'}>
 	<h3 class="font-bold text-lg mb-2" slot="title">Información profesional</h3>
 	<section>
-		<!-- <input type="hidden" name="user_id" value={session.id} />
-		<Input name={'id'} type={'hidden'} value={careerInfo?.id} /> -->
 		<h4>Objetivos profesionales</h4>
 		<ul class="grid gap-1 my-2">
 			{#each careerInfo.career_goals as goal}
 				<li class="">
-					<p class="text-sombra-300"><span class="text-sm">📌</span> {goal}</p>
+					<p class="text-sombra-300"><span class="text-sm">🎯</span> {goal}</p>
 				</li>
 			{/each}
 		</ul>
 
-		<!-- <Input label={''} name={'objective1'} placeholder={'Nuevo objetivo'} /> -->
 		<input
 			class="input input-bordered input-sm focus:outline-azul-100"
 			type="text"
@@ -119,13 +125,27 @@
 			>Agregar</button
 		>
 	</section>
-	<!-- <Input label={''} name={'objective2'} placeholder={'Objetivo 2'} />
-	<Input label={''} name={'objective3'} placeholder={'Objetivo 3'} /> -->
 	<div class="divider" />
-	<h4>Habilidades técnicas</h4>
-	<Input label={''} name={'skill1'} placeholder={'Habilidad 1'} />
-	<Input label={''} name={'skill2'} placeholder={'Habilidad 2'} />
-	<Input label={''} name={'skill3'} placeholder={'Habilidad 3'} />
+	<section>
+		<h4>Habilidades técnicas</h4>
+		<ul class="grid gap-1 my-2">
+			{#each careerInfo.skills as skill}
+				<li class="">
+					<p class="text-sombra-300"><span class="text-sm">📌</span> {skill}</p>
+				</li>
+			{/each}
+		</ul>
+
+		<input
+			class="input input-bordered input-sm focus:outline-azul-100"
+			type="text"
+			placeholder="Nueva habilidad"
+			bind:value={newSkill}
+		/>
+		<button class="btn btn-sm btn-primary w-fit px-2" type="button" on:click={handleNewSkill}
+			>Agregar</button
+		>
+	</section>
 </ModalForm>
 
 <ModalForm id_modal={'feddbackModal'} action={'sendFeecback'} boton={'Envíar'}>
