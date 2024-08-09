@@ -11,6 +11,8 @@
 	let newSkill = '';
 
 	const handleNewObjective = async () => {
+		if (!newObjective || newObjective == '') return;
+
 		careerInfo.career_goals = [...careerInfo.career_goals, newObjective];
 
 		await fetch(`/api/users/professional/goals`, {
@@ -22,6 +24,7 @@
 	};
 
 	const handleNewSkill = async () => {
+		if (!newObjective || newObjective == '') return;
 		careerInfo.skills = [...careerInfo.skills, newSkill];
 
 		await fetch(`/api/users/professional/skills`, {

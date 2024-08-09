@@ -4,9 +4,11 @@
 	import ModalCreate from '$components/login/ModalCreate.svelte';
 
 	export let form;
+	const jsonForm = JSON.stringify(form);
+	console.log('🚀 ~ form:', JSON.stringify(form));
 </script>
 
-<Toast {form} />
+<Toast form={jsonForm} />
 
 <main
 	class="bg-mainBlue p-6 grid w-full min-h-screen

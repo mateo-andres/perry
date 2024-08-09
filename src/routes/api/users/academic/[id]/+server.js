@@ -4,9 +4,12 @@ const prisma = new PrismaClient();
 export async function GET({ params }) {
 	const { id } = params;
 	try {
-		const academicInfo = await prisma.academic_info.findFirst({
+		const academicInfo = await prisma.academic_info.findMany({
 			where: {
 				user_id: parseInt(id)
+			},
+			orderBy: {
+				semester: 'desc'
 			}
 		});
 

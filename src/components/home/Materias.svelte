@@ -7,10 +7,10 @@
 <Card title={'Materias'}>
 	<i slot="icon" class="fa-solid fa-book" />
 
-	{#each Object.keys(academicInfo.courses) as course, i}
+	{#each Object.keys(academicInfo[0].courses) as course, i}
 		<div class="flex flex-col items-center justify-center bg-azul-300 text-white rounded-xl p-4">
-			<h3 class="font-bold text-lg">{academicInfo.courses[course].name}</h3>
-			<p>{academicInfo.courses[course].grade}</p>
+			<h3 class="font-bold text-lg">{academicInfo[0].courses[course].name}</h3>
+			<p>{academicInfo[0].courses[course].grade}</p>
 		</div>
 	{/each}
 
